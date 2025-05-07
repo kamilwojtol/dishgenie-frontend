@@ -1,1 +1,38 @@
-<p>home works!</p>
+<div class="flex">
+  <p-picklist
+    [source]="listOfIngredients"
+    [target]="selectedIngredients"
+    [dragdrop]="true"
+    [responsive]="true"
+    [sourceStyle]="{ height: '30rem' }"
+    [targetStyle]="{ height: '30rem' }"
+    breakpoint="1400px"
+  >
+    <ng-template let-item #item>
+      {{ item.name }}
+    </ng-template>
+  </p-picklist>
+  <p-button
+    label="Search recipe"
+    icon="pi pi-search"
+    [disabled]="!selectedIngredients.length"
+    class="ml-2"
+  ></p-button>
+  <div class="flex">
+    <p-button
+      (click)="applyFilter('vege')"
+      [severity]="filters.vege ? 'success' : 'secondary'"
+      >Vege</p-button
+    >
+    <p-button
+      (click)="applyFilter('vegan')"
+      [severity]="filters.vegan ? 'success' : 'secondary'"
+      >Vegan</p-button
+    >
+    <p-button
+      (click)="applyFilter('gluten_free')"
+      [severity]="filters.gluten_free ? 'success' : 'secondary'"
+      >Gluten-free</p-button
+    >
+  </div>
+</div>
