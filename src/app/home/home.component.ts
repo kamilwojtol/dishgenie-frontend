@@ -3,7 +3,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PickListModule } from 'primeng/picklist';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { ingredients } from '../shared/ingredients';
+import { FilterService } from '../shared/services/filter/filter.service';
+import { RecipeService } from '../shared/services/recipe/recipe.service';
 
 @Component({
   selector: 'app-home',
@@ -12,24 +13,41 @@ import { ingredients } from '../shared/ingredients';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  originalIngredients = [...ingredients];
-  listOfIngredients = [...ingredients];
-  selectedIngredients: any[] = [];
-  filters = {
-    vege: false,
-    vegan: false,
-    gluten_free: false,
-  };
+  constructor(
+    private filterService: FilterService,
+    private recipeService: RecipeService
+  ) {}
 
-  applyFilter(type: 'vege' | 'vegan' | 'gluten_free') {
-    if (this.filters[type]) {
-      this.listOfIngredients = [...this.originalIngredients];
-      this.filters[type] = false;
-    } else {
-      this.listOfIngredients = this.listOfIngredients.filter(
-        (ing) => ing[type]
-      );
-      this.filters[type] = true;
+  get listOfIngredients() {
+    return this.filterService.listOfIngredients;
+  }
+
+  get originalIngredients() {
+    return this.filterService.originalIngredients;
+  }
+
+  get filters() {
+    return this.filterService.filters;
+  }
+
+  public applyFilter(type: 'vege' | 'vegan' | 'gluten_free') {
+    this.filterService.applyFilter(type);
+  }
+
+  public async searchRecipe() {
+    const selectedIngredients = this.filterService.listOfIngredients.map(
+      (ingredient) => ingredient.name
+    );
+
+    if (selectedIngredients.length > 0) {
+      try {
+        const recipes = await this.recipeService.getRecipeByIngredients(
+          selectedIngredients
+        );
+        console.log('Recipes found:', recipes);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
     }
   }
 }

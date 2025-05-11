@@ -1,7 +1,7 @@
 <div class="flex">
   <p-picklist
-    [source]="listOfIngredients"
-    [target]="selectedIngredients"
+    [source]="originalIngredients"
+    [target]="listOfIngredients"
     [dragdrop]="true"
     [responsive]="true"
     [sourceStyle]="{ height: '30rem' }"
@@ -15,8 +15,9 @@
   <p-button
     label="Search recipe"
     icon="pi pi-search"
-    [disabled]="!selectedIngredients.length"
+    [disabled]="!listOfIngredients.length"
     class="ml-2"
+    (click)="searchRecipe()"
   ></p-button>
   <div class="flex">
     <p-button
