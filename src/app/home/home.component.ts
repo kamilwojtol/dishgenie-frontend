@@ -35,14 +35,10 @@ export class HomeComponent {
   }
 
   public async searchRecipe() {
-    const selectedIngredients = this.filterService.listOfIngredients.map(
-      (ingredient) => ingredient.name
-    );
-
-    if (selectedIngredients.length > 0) {
+    if (this.listOfIngredients.length > 0) {
       try {
-        const recipes = await this.recipeService.getRecipeByIngredients(
-          selectedIngredients
+        const recipes = this.recipeService.getRecipeByIngredients(
+          this.listOfIngredients.map((ingredient) => ingredient.name)
         );
         console.log('Recipes found:', recipes);
       } catch (error) {

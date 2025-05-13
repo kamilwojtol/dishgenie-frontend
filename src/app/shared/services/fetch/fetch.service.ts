@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FetchService {
-  constructor(HttpClient: HttpClient) {
-    this.httpClient = HttpClient;
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
   }
 
   private httpClient: HttpClient;
 
-  public fetch(url: string, params: any = {}) {
+  public fetch(url: string, params: any = {}): Observable<any> {
     try {
-      const data = this.httpClient.get(url, {
+      return this.httpClient.get(url, {
         headers: {
-          'x-api-key': (environment as any).SPOONACULAR_API_KEY,
+          'x-api-key': environment.SPOONACULAR_API_KEY,
         },
         params: {
           ...params,
         },
       });
-      console.log('Data fetched successfully:', data);
-      return data;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
