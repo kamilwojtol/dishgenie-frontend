@@ -15,15 +15,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(BrowserAnimationsModule),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Aura
       },
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),

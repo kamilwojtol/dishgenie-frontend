@@ -1,26 +1,43 @@
-<div class="flex">
-  <p-picklist
-    [source]="originalIngredients"
-    [target]="listOfIngredients"
-    [dragdrop]="true"
-    [responsive]="true"
-    [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }"
-    breakpoint="1400px"
-  >
-    <ng-template let-item #item>
-      {{ item.name }}
-    </ng-template>
-  </p-picklist>
-  <p-button
-    label="Search recipe"
-    icon="pi pi-search"
-    [disabled]="!listOfIngredients.length"
-    class="ml-2"
-    (click)="searchRecipe()"
-  ></p-button>
+<div class="flex flex-col">
   <div class="flex">
+    <input
+      pInputText
+      [(ngModel)]="ingredientName"
+      placeholder="Add ingredient"
+      (keyup.enter)="ingredientName.length > 3 ? searchIngredient() : null"
+      class="w-full"
+      name="ingredientName"
+    />
     <p-button
+      label="Search ingredient"
+      icon="pi pi-search"
+      [disabled]="!(ingredientName.length > 3)"
+      class="ml-2"
+      (click)="searchIngredient()"
+    ></p-button>
+  </div>
+  <div class="flex">
+    @if (foundIngredients.length > 0) { @for (ingredient of foundIngredients;
+    track $index) {
+    <div class="flex flex-col">
+      <p-button
+        icon="pi pi-check"
+        class="flex flex-row"
+        (click)="addIngredient(ingredient)"
+      >
+        <img
+          [src]="
+            'https://img.spoonacular.com/ingredients_250x250/' +
+            ingredient.image
+          "
+          [alt]="ingredient.name"
+        />
+        <p>{{ ingredient.name }}</p>
+      </p-button>
+    </div>
+
+    } }
+    <!-- <p-button
       (click)="applyFilter('vege')"
       [severity]="filters.vege ? 'success' : 'secondary'"
       >Vege</p-button
@@ -34,6 +51,6 @@
       (click)="applyFilter('gluten_free')"
       [severity]="filters.gluten_free ? 'success' : 'secondary'"
       >Gluten-free</p-button
-    >
+    > -->
   </div>
 </div>
