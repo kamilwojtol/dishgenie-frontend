@@ -14,15 +14,11 @@ export class FilterService {
     gluten_free: false,
   };
 
-  // public applyFilter(type: 'vege' | 'vegan' | 'gluten_free') {
-  //   if (this.filters[type]) {
-  //     this.listOfIngredients = [...this.originalIngredients];
-  //     this.filters[type] = false;
-  //   } else {
-  //     this.listOfIngredients = this.listOfIngredients.filter(
-  //       (ing) => ing[type]
-  //     );
-  //     this.filters[type] = true;
-  //   }
-  // }
+  public applyFilter(type: 'vege' | 'vegan' | 'gluten_free') {
+    if (this.filters[type]) {
+      this.filters[type] = false;
+    } else {
+      this.filters[type] = true;
+    }
+  }
 }

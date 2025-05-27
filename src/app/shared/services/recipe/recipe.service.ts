@@ -24,16 +24,16 @@ export class RecipeService {
     return this.fetchService.fetch(url, params);
   }
 
-  public getRecipeByIngredients(ingredients: string[]) {
+  public getRecipeByIngredients(
+    ingredients: string[],
+    filter?: 'vege' | 'vegan' | 'gluten_free'
+  ) {
     const url = 'https://api.spoonacular.com/recipes/findByIngredients';
     const params = {
       ingredients: ingredients.join(','),
       number: 5,
       ranking: 1,
     };
-    return this.fetchService.fetch(url, params).subscribe((response) => {
-      console.log('Response:', response);
-      return response;
-    });
+    return this.fetchService.fetch(url, params);
   }
 }
