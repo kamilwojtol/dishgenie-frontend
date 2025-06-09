@@ -1,18 +1,24 @@
-import { Component, Inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { MobileNavigationComponent } from './mobile-navigation/mobile-navigation.component';
-import { DesktopNavigationComponent } from './desktop-navigation/desktop-navigation.component';
-import { from, fromEvent } from 'rxjs';
+import { NavigationComponent } from './navigation/navigation.component';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [MobileNavigationComponent, DesktopNavigationComponent],
+  standalone: true,
+  imports: [NavigationComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   private isBrowser = signal(false);
   deviceWidth = signal(0);
+  isOpen = false;
+
+  toggleMenu() {
+    console.log('Toggling menu');
+    this.isOpen = !this.isOpen;
+  }
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {

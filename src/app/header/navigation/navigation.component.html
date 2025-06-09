@@ -1,0 +1,16 @@
+<nav class="navigation flex flex-col justify-center items-center">
+  @if (isOpen) {
+  <ng-icon
+    name="heroXMarkSolid"
+    class="h-4 cursor-pointer z-10 text-gray-800"
+    color="black"
+    (click)="onToggleMenu()"
+  />
+  } @else {
+  <ng-icon
+    name="heroBars3BottomLeftSolid"
+    class="h-4 cursor-pointer z-10"
+    (click)="onToggleMenu()"
+  />
+  }
+</nav>

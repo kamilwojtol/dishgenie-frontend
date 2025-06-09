@@ -1,8 +1,23 @@
-<header class="header">
+<header
+  class="header flex justify-between items-center p-4 bg-gray-800 text-white"
+>
   <h1>Dishgenie</h1>
-  @if (isMobile) {
-  <app-mobile-navigation></app-mobile-navigation>
-  } @else {
-  <app-desktop-navigation></app-desktop-navigation>
-  }
+  <app-navigation [isOpen]="isOpen" (toggle)="toggleMenu()" />
+  <div
+    class="z-10 flex absolute left-0 top-0 flex-col justify-center items-center"
+  >
+    <ul
+      class="flex gap-3 flex-col justify-center items-center"
+      [class]="{
+    open: isOpen,
+  }"
+    >
+      <li>
+        <a href="#">Get meal</a>
+      </li>
+      <li>
+        <a href="#">My recipes</a>
+      </li>
+    </ul>
+  </div>
 </header>
