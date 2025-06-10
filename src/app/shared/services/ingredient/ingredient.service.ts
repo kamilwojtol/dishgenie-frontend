@@ -1,13 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Ingredient } from '../../interfaces/ingredient.model';
+import {
+  Ingredient,
+  IngredientResponse,
+} from '../../interfaces/ingredient.model';
+import { Observable } from 'rxjs';
+import { FetchService } from '../fetch/fetch.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IngredientService {
-  constructor() {}
+  constructor(private fetchService: FetchService) {}
 
   ingredients: Ingredient[] = [];
+
+  public getIngredientByName(
+    ingredientName: string
+  ): Observable<IngredientResponse> {
+    const url = 'https://api.spoonacular.com/food/ingredients/search';
+    const params = {
+      query: ingredientName,
+      number: 5,
+    };
+    return this.fetchService.fetch(url, params);
+  }
 
   public isIngredientInList(ingredientID: number): boolean {
     return this.ingredients.some(

@@ -1,0 +1,33 @@
+@if (listOfIngredients.length >= 3) {
+<section>
+  <div class="flex flex-col">
+    <h3>Recipe filters</h3>
+    <div class="flex flex-row gap-2 mx-2">
+      <p-button
+        (click)="applyFilter('vege')"
+        [severity]="filters.vege ? 'success' : 'secondary'"
+        >Vege</p-button
+      >
+      <p-button
+        (click)="applyFilter('vegan')"
+        [severity]="filters.vegan ? 'success' : 'secondary'"
+        >Vegan</p-button
+      >
+      <p-button
+        (click)="applyFilter('gluten_free')"
+        [severity]="filters.gluten_free ? 'success' : 'secondary'"
+        >Gluten-free</p-button
+      >
+    </div>
+  </div>
+</section>
+}
+<section>
+  <h2>Found recipes</h2>
+  @for (recipe of foundRecipes; track $index) {
+  <div>
+    <img [src]="recipe.image" alt="" />
+    <h2>{{ recipe.title }}</h2>
+  </div>
+  }
+</section>

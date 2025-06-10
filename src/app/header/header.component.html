@@ -7,17 +7,19 @@
     class="z-10 flex absolute left-0 top-0 flex-col justify-center items-center"
   >
     <ul
-      class="flex gap-3 flex-col justify-center items-center"
+      class="flex gap-3 pt-10 flex-col justify-center items-center"
       [class]="{
     open: isOpen,
   }"
     >
-      <li>
-        <a href="#">Get meal</a>
+      @if (isOpen) {
+      <li class="flex justify-center items-center p-2">
+        <a href="#" class="text-2xl text-gray-800">Get meal</a>
       </li>
-      <li>
-        <a href="#">My recipes</a>
+      <li class="flex justify-center items-center p-2">
+        <a href="#" class="text-2xl text-gray-800">My recipes</a>
       </li>
+      }
     </ul>
   </div>
 </header>

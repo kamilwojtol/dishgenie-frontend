@@ -13,24 +13,13 @@ export class RecipeService {
 
   private fetchService: FetchService;
 
-  public getIngredientByName(
-    ingredientName: string
-  ): Observable<IngredientResponse> {
-    const url = 'https://api.spoonacular.com/food/ingredients/search';
-    const params = {
-      query: ingredientName,
-      number: 5,
-    };
-    return this.fetchService.fetch(url, params);
-  }
-
   public getRecipeByIngredients(
     ingredients: string[],
     filter?: 'vege' | 'vegan' | 'gluten_free'
   ) {
     const url = 'https://api.spoonacular.com/recipes/findByIngredients';
     const params = {
-      ingredients: ingredients.join(','),
+      ingredients: ingredients,
       number: 5,
       ranking: 1,
     };

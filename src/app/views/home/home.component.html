@@ -1,5 +1,5 @@
-<div class="flex flex-col">
-  <div class="flex">
+<div class="flex flex-col mt-2 justify-center items-center">
+  <div class="flex w-full">
     <input
       pInputText
       [(ngModel)]="ingredientName"
@@ -16,7 +16,7 @@
       (click)="searchIngredient()"
     ></p-button>
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-row">
     <div class="flex flex-row">
       @if (foundIngredients.length > 0) { @for (ingredient of foundIngredients;
       track $index) {
@@ -42,17 +42,17 @@
       </div>
       } }
     </div>
-    <div>
+    <div class="border-1 border-gray-400 rounded-md p-2 m-2 w-50">
       @if (listOfIngredients.length > 0) {
       <p>Your ingredients</p>
       <div class="flex flex-wrap">
         <ul>
           @for (ingredient of listOfIngredients; track $index) {
-          <li>
+          <li class="flex flex-row justify-between items-center w-30 m-2">
             <p>{{ ingredient.name }}</p>
             <ng-icon
               name="heroXMarkSolid"
-              class="h-4 cursor-pointer z-10"
+              class="h-4 cursor-pointer ml-2 z-10"
               (click)="toggleIngredient(ingredient)"
             />
           </li>
@@ -61,42 +61,14 @@
       </div>
       }
     </div>
-    @if (listOfIngredients.length >= 3) {
-    <section>
-      <div class="flex flex-col">
-        <h3>Filters</h3>
-        <div class="flex flex-row gap-2 mx-2">
-          <p-button
-            (click)="applyFilter('vege')"
-            [severity]="filters.vege ? 'success' : 'secondary'"
-            >Vege</p-button
-          >
-          <p-button
-            (click)="applyFilter('vegan')"
-            [severity]="filters.vegan ? 'success' : 'secondary'"
-            >Vegan</p-button
-          >
-          <p-button
-            (click)="applyFilter('gluten_free')"
-            [severity]="filters.gluten_free ? 'success' : 'secondary'"
-            >Gluten-free</p-button
-          >
-        </div>
-        <p-button (click)="searchRecipe()"
-          >Search recipe with selected ingredient</p-button
-        >
-      </div>
-    </section>
-    } @if (foundRecipes.length > 0) {
-    <section>
-      <h2>Found recipes</h2>
-      @for (recipe of foundRecipes; track $index) {
-      <div>
-        <img [src]="recipe.image" alt="" />
-        <h2>{{ recipe.title }}</h2>
-      </div>
-      }
-    </section>
-    }
   </div>
 </div>
+@if (listOfIngredients.length >= 3) {
+<RouterLink
+  [routerLink]="'recipes'"
+  class="p-button p-component p-button-outlined w-50 mt-4"
+  [queryParams]="{ ingredients: [ingredientNames] }"
+  routerLinkActive="router-link-active"
+  >Search recipe with selected ingredients</RouterLink
+>
+}
