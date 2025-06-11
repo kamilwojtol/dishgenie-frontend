@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/interfaces/recipe.model';
 import { FilterService } from '../../shared/services/filter/filter.service';
 import { RecipeService } from '../../shared/services/recipe/recipe.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { heroArrowLeftSolid } from '@ng-icons/heroicons/solid';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 
 @Component({
   selector: 'app-recipes',
-  imports: [ButtonModule],
+  imports: [ButtonModule, NgIcon, RouterLink],
+  providers: [provideIcons({ heroArrowLeftSolid })],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.scss',
 })
