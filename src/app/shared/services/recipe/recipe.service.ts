@@ -13,6 +13,14 @@ export class RecipeService {
 
   private fetchService: FetchService;
 
+  public getRecipeById(id: number): Observable<any> {
+    const url = `https://api.spoonacular.com/recipes/${id}/information`;
+    const params = {
+      includeNutrition: true,
+    };
+    return this.fetchService.fetch(url, params);
+  }
+
   public getRecipeByIngredients(
     ingredients: string[],
     filter?: 'vege' | 'vegan' | 'gluten_free'

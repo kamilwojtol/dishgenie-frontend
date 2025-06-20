@@ -1,1 +1,26 @@
-<p>recipe works!</p>
+<div>
+  <h1>{{ recipeData.title }}</h1>
+
+  <img [src]="recipeData.image" [alt]="recipeData.title" />
+
+  <h2>Ingredients</h2>
+  <ul>
+    @for (ingredient of recipeData.extendedIngredients; track ingredient) {
+    <li>{{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+    }
+  </ul>
+
+  <h2>Instructions</h2>
+  <ol>
+    @for (instruction of recipeData.analyzedInstructions; track instruction) {
+    <li>
+      <h3>{{ instruction.name }}</h3>
+      @for (step of instruction.steps; track step) {
+      <p>{{ step.number }}. {{ step.step }}</p>
+      }
+    </li>
+    }
+  </ol>
+
+  <button (click)="goBackToRecipeList()">Back to Recipes</button>
+</div>
