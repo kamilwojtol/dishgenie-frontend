@@ -20,14 +20,14 @@ export class HeaderComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isBrowser.set(true);
-    }
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     if (this.isBrowser()) {
+      if (isPlatformBrowser(this.platformId)) {
+        this.isBrowser.set(true);
+      }
+
       this.deviceWidth.set(window.innerWidth);
       fromEvent(window, 'resize').subscribe(() => {
         this.deviceWidth.set(window.innerWidth);
