@@ -46,8 +46,14 @@ export class RecipeComponent implements OnInit {
 
   addToFavourites(): void {
     if (this.recipeData) {
-      console.log('Adding recipe to favourites:', this.recipeData);
-      // Add a method to add to favourites
+      const existingFavs = localStorage.getItem('favouriteRecipes') || null;
+
+      const newFavs = [
+        ...(existingFavs ? JSON.parse(existingFavs) : []),
+        this.recipeData,
+      ];
+
+      localStorage.setItem(`favouriteRecipes`, JSON.stringify(newFavs));
     } else {
       console.error('No recipe data available to add to favourites');
     }

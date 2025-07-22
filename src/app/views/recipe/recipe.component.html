@@ -1,27 +1,45 @@
-<div>
-  <h1>{{ recipeData.title }}</h1>
+<div class="flex flex-col items-center justify-center p-4">
+  @if (recipeData) {
+  <h1 class="mt-2 mb-4 text-4xl">{{ recipeData.title }}</h1>
 
-  <img [src]="recipeData.image" [alt]="recipeData.title" />
+  <img
+    [src]="recipeData.image"
+    [alt]="recipeData.title"
+    class="max-w-l object-cover"
+  />
+  <div class="flex flex-row mt-2">
+    <div class="flex flex-col w-1/4">
+      <h2 class="text-2xl mb-1">Ingredients</h2>
+      <ul>
+        @for (ingredient of recipeData.extendedIngredients; track ingredient) {
+        <li>
+          {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}
+        </li>
+        }
+      </ul>
+    </div>
 
-  <h2>Ingredients</h2>
-  <ul>
-    @for (ingredient of recipeData.extendedIngredients; track ingredient) {
-    <li>{{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}</li>
-    }
-  </ul>
+    <div class="flex flex-col w-3/4">
+      <h2 class="text-2xl mb-1">Instructions</h2>
+      <ol>
+        @for (instruction of recipeData.analyzedInstructions; track instruction)
+        {
+        <li>
+          <h3>{{ instruction.name }}</h3>
+          @for (step of instruction.steps; track step) {
+          <p>{{ step.number }}. {{ step.step }}</p>
+          }
+        </li>
+        }
+      </ol>
+    </div>
+  </div>
 
-  <h2>Instructions</h2>
-  <ol>
-    @for (instruction of recipeData.analyzedInstructions; track instruction) {
-    <li>
-      <h3>{{ instruction.name }}</h3>
-      @for (step of instruction.steps; track step) {
-      <p>{{ step.number }}. {{ step.step }}</p>
-      }
-    </li>
-    }
-  </ol>
-
-  <p-button (click)="goBackToRecipeList()">Back to Recipes</p-button>
-  <p-button (click)="addToFavourites()"> Add to Favourites </p-button>
+  <div class="flex gap-2 mt-4">
+    <p-button (click)="goBackToRecipeList()">Back to Recipes</p-button>
+    <p-button (click)="addToFavourites()"> Add to Favourites </p-button>
+  </div>
+  } @else {
+  <p class="text-xl">Loading recipe...</p>
+  }
 </div>

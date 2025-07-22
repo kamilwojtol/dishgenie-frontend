@@ -1,7 +1,7 @@
 <header
   class="header flex justify-between items-center p-4 bg-gray-800 text-white"
 >
-  <h1>Dishgenie</h1>
+  <h1 class="cursor-pointer" (click)="redirectToHome()">Dishgenie</h1>
   <app-navigation [isOpen]="isOpen" (toggle)="toggleMenu()" />
   <div
     class="z-10 flex absolute left-0 top-0 flex-col justify-center items-center"

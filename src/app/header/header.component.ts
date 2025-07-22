@@ -38,4 +38,12 @@ export class HeaderComponent implements OnInit {
   get isMobile() {
     return this.deviceWidth() ? this.deviceWidth() < 768 : false;
   }
+
+  redirectToHome() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = '/';
+    } else {
+      console.warn('redirectToHome called on server side');
+    }
+  }
 }
